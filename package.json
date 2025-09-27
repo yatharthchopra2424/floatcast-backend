@@ -1,0 +1,11 @@
+{
+  "name": "floatcast-ai-backend",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}
