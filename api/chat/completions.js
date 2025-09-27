@@ -3,6 +3,21 @@ import fetch from 'node-fetch';
 const DEFAULT_NVIDIA_BASE = 'https://integrate.api.nvidia.com/v1';
 
 export default async function handler(req, res) {
+  // CORS: Allow requests from the frontend. In production you can set
+  // CORS_ORIGIN to a specific origin (e.g. https://floatcast-ai.vercel.app)
+  const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
+  res.setHeader('Access-Control-Allow-Origin', CORS_ORIGIN);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    // 204 No Content
+    res.status(204).end();
+    return;
+  }
+
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed. Use POST.' });
